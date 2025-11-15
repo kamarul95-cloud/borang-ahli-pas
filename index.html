@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borang Pendaftaran (Versi Manual)</title>
+  <style>
+    /* === Font & Body === */
+    @import url('https://fonts.googleapis.com/css2?family=Arial&display=swap');
+
+    :root {
+      /* Warna tema diinspirasikan dari borang fizikal */
+      --c-primary: #006400; /* Hijau Gelap */
+      --c-bg-header: #e0f0e0; /* Hijau Pucuk Pisang */
+      --c-border: #888;
+      --c-bg-light: #e9e9e9; /* Latar belakang 'luar kertas' */
+      --c-text: #000;
+      --c-text-label: #333;
+      --c-text-help: #555;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--c-bg-light);
+      color: var(--c-text);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      font-size: 14px; /* Saiz font borang manual */
+    }
+
+    /* === Kontena Utama (Kertas) === */
+    .container {
+      width: 100%;
+      max-width: 850px; /* Lebar sedikit untuk lajur */
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #333;
+      overflow: hidden;
+    }
+    
+    /* === Header Gambar === */
+    .form-header-image {
+      padding: 0;
+      border-bottom: 2px solid #000;
+      background-color: #fff;
+      text-align: center;
+      line-height: 0; /* Padam 'extra space' bawah gambar */
+    }
+    .form-header-image img {
+      width: 100%;
+      max-width: 100%;
+      display: block; /* Padam 'extra space' bawah gambar */
+    }
+    
+    form {
+      padding: 24px;
+    }
+
+    /* === 'Fieldset' & 'Legend' (Header Bahagian) === */
+    fieldset {
+      border: 1px solid #000;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 24px;
+    }
+
+    legend {
+      padding: 6px 12px;
+      font-size: 1em;
+      font-weight: 700;
+      color: white;
+      background: var(--c-primary);
+      margin-left: 16px; /* 'Effect' header */
+      width: auto;
+    }
+
+    /* === Kumpulan Borang (Label + Input) === */
+    .form-section {
+      padding: 16px;
+    }
+    
+    .form-group {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+      font-size: 0.9em;
+      color: var(--c-text-label);
+    }
+
+    /* === Input fail ditambah === */
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="email"],
+    .form-group input[type="file"],
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--c-border);
+      border-radius: 0; /* Tiada 'radius' */
+      box-sizing: border-box;
+      font-size: 1em;
+      font-family: Arial, sans-serif;
+      /* === Warna latar input jadi hijau === */
+      background: var(--c-bg-header);
+    }
+    
+    /* Input fail perlukan latar putih */
+    .form-group input[type="file"] {
+      background: #fff;
+      padding: 6px;
+    }
+
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--c-primary);
+      box-shadow: 0 0 0 2px rgba(0, 100, 0, 0.1);
+      outline: none;
+      background: #fff; /* Tukar putih bila 'focus' */
+    }
+    
+    /* Input 'Lain-lain' */
+    .lain-lain-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .lain-lain-group .choice-item {
+      flex-shrink: 0;
+    }
+    .lain-lain-group input[type="text"] {
+      flex-grow: 1;
+    }
+
+    /* === Pilihan (Radio & Checkbox) === */
+    .choice-group {
+      display: flex;
+      flex-wrap: wrap; /* Benarkan 'wrap' jika sempit */
+      gap: 16px;
+      margin-top: 4px;
+    }
+    
+    .choice-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .choice-item input[type="radio"],
+    .choice-item input[type="checkbox"] {
+      width: 1.2em;
+      height: 1.2em;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: var(--c-primary); /* Warnakan 'tick'/'dot' */
+    }
+    
+    .choice-item label {
+      margin: 0;
+      font-weight: 400;
+      color: var(--c-text);
+      cursor: pointer;
+    }
+
+    /* === Teks Bantuan === */
+    .help-text {
+      font-size: 0.85em;
+      color: var(--c-text-help);
+      margin-top: 4px;
+      line-height: 1.4;
+      background: var(--c-bg-header);
+      padding: 8px;
+      border: 1px dashed var(--c-border);
+    }
+    
+    /* Teks bantuan khas untuk upload IC */
+    .help-text-white {
+      background: #fff !important;
+      border-style: solid;
+    }
+    
+    .help-text a {
+      color: var(--c-primary);
+      font-weight: 600;
+    }
+
+    /* === Layout Grid (Untuk Susun Atur) === */
+    .grid-row {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .grid-col-2 { grid-template-columns: 1fr 1fr; }
+    .grid-col-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* Responsif untuk skrin kecil */
+    @media (max-width: 700px) {
+      .grid-col-2,
+      .grid-col-3 {
+        grid-template-columns: 1fr; /* Jadi 1 lajur */
+        margin-bottom: 0; /* Padam 'margin' bwh (diganti 'gap') */
+      }
+      .grid-row {
+        margin-bottom: 0; /* Guna 'gap' dari 'grid' */
+      }
+      .form-group {
+        margin-bottom: 12px; /* Kekalkan jarak */
+      }
+      
+      /* Responsif 'Lain-lain' */
+      .lain-lain-group {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .lain-lain-group input[type="text"] {
+        width: 100%;
+      }
+    }
+
+
+    /* === Butang Hantar === */
+    .submit-button {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--c-primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 16px;
+    }
+    
+    /* 'Disabled' fieldset */
+    fieldset:disabled {
+      background: #f7f7f7;
+      opacity: 0.8;
+    }
+    
+    fieldset:disabled legend {
+      background: #777;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- === HEADER GAMBAR (KEKAL) === -->
+    <div class="form-header-image">
+      <img src="https://raw.githubusercontent.com/kamarul95-cloud/hostqamarul/main/Screenshot_15-11-2025_204740_.jpeg" alt="Borang Permohonan Ahli PAS">
+    </div>
+
+    <!-- 
+      === [PENTING] 'enctype' ditambah untuk membenarkan 'file upload'. ===
+      ACTION diganti supaya fallback native POST ke webapp juga berfungsi.
+    -->
+    <form id="pendaftaranForm" method="POST" action="https://script.google.com/macros/s/AKfycbw_ifKoRTR3wxHBMzZPjUIWCTrlZWs7buRB_LMfgDt7zJMZig-SJ-hCbaymPErH85N6zA/exec​https://script.google.com/macros/s/AKfycbw_ifKoRTR3wxHBMzZPjUIWCTrlZWs7buRB_LMfgDt7zJMZig-SJ-hCbaymPErH85N6zA/exec" enctype="multipart/form-data">
+
+      <!-- ============================================= -->
+      <!-- BAHAGIAN A: BUTIR-BUTIR DIRI -->
+      <!-- ============================================= -->
+      <fieldset>
+        <legend>A. BUTIR-BUTIR DIRI</legend>
+        <div class="form-section">
+
+          <div class="form-group">
+            <label for="nama_jawi">1. Nama Penuh (Tulisan Jawi)</label>
+            <input type="text" id="nama_jawi" name="nama_jawi">
+            <p class="help-text">
+              <!-- === [DIKEMAS KINI] Link Jawi dimasukkan === -->
+              <a href="https://ejawimakmur.my/" target="_blank" rel="noopener noreferrer">
+                Klik di sini untuk menukar nama Rumi ke Jawi
+              </a>
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="nama_rumi">2. Nama Penuh (Tulisan Rumi; ikut Kad Pengenalan)</label>
+            <input type="text" id="nama_rumi" name="nama_rumi">
+          </div>
+
+          <!-- Susun atur 3 lajur -->
+          <div class="grid-row grid-col-3">
+            <div class="form-group">
+              <label for="ic_baru">3. No. Kad Pengenalan Baru</label>
+              <input type="text" id="ic_baru" name="ic_baru">
+            </div>
+
+            <div class="form-group">
+              <label for="ic_lama">4. No. Kad Pengenalan Lama</label>
+              <input type="text" id="ic_lama" name="ic_lama">
+            </div>
+            
+            <div class="form-group">
+              <label for="tarikh_lahir">5. Tarikh Lahir</label>
+              <input type="date" id="tarikh_lahir" name="tarikh_lahir" style="padding: 6px 10px;">
+            </div>
+          </div>
+          
+          <!-- === [BARU] FIELD UPLOAD IC DIINJECT SEMULA === -->
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="ic_gambar">Lampirkan Salinan IC (Depan & Belakang)</label>
+            <input type="file" id="ic_gambar" name="ic_gambar" accept="image/*,.pdf">
+            <p class="help-text help-text-white">
+              Sila tekan link untuk tangkap gambar ic depan belakang
+              <br>
+              <!-- === [DIKEMAS KINI] Link Scanner IC dimasukkan === -->
+              <a href="https://scanner-no-kp-by-kamarul.netlify.app/" target="_blank" rel="noopener noreferrer">
+                Ambil Gambar IC Dengan Auto Crop & Saiz Sebenar
+              </a>
+              <br>
+              <small>(Upload 1 fail sahaja. Max 10 MB.)</small>
+            </p>
+          </div>
+          <!-- === [TAMAT BARU] === -->
+
+          <!-- Susun atur 2 lajur -->
+          <div class="grid-row grid-col-2" style="margin-top: 16px;">
+            <div class="form-group">
+              <label>6. Jantina</label>
+              <div class="choice-group">
+                <div class="choice-item">
+                  <input type="radio" id="jantina_lelaki" name="jantina" value="Lelaki">
+                  <label for="jantina_lelaki">Lelaki</label>
+                </div>
+                <div class="choice-item">
+                  <input type="radio" id="jantina_perempuan" name="jantina" value="Perempuan">
+                  <label for="jantina_perempuan">Perempuan</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bangsa">7. Bangsa/Keturunan</label>
+              <input type="text" id="bangsa" name="bangsa">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="alamat">8. Alamat Surat Menyurat</label>
+            <textarea id="alamat" name="alamat" rows="3"></textarea>
+          </div>
+
+          <!-- Susun atur 2 lajur -->
+          <div class="grid-row grid-col-2">
+            <div class="form-group">
+              <label for="poskod">Poskod</label>
+              <input type="text" id="poskod" name="poskod">
+            </div>
+
+            <div class="form-group">
+              <label for="bandar">Bandar</label>
+              <input type="text" id="bandar" name="bandar">
+            </div>
+          </div>
+
+          <!-- Susun atur 3 lajur -->
+          <div class="grid-row grid-col-3">
+            <div class="form-group">
+              <label for="tel_rumah">9. No. Telefon Rumah</label>
+              <input type="text" id="tel_rumah" name="tel_rumah">
+            </div>
+
+            <div class="form-group">
+              <label for="tel_bimbit">10. No. Telefon Bimbit</label>
+              <input type="text" id="tel_bimbit" name="tel_bimbit">
+            </div>
+            
+            <div class="form-group">
+              <label for="email">11. Alamat E-mel</label>
+              <input type="email" id="email" name="email">
+            </div>
+          </div>
+          
+          <!-- Susun atur 2 lajur -->
+          <div class="grid-row grid-col-2">
+            <div class="form-group">
+              <label>12. Kelulusan</label>
+              <div class="choice-group">
+                <div class="choice-item">
+                  <input type="radio" id="kelulusan_uni" name="kelulusan" value="Universiti" onclick="toggleKelulusanLain(false)">
+                  <label for="kelulusan_uni">Universiti</label>
+                </div>
+                <div class="lain-lain-group">
+                  <div class="choice-item">
+                    <input type="radio" id="kelulusan_lain" name="kelulusan" value="Lain-lain" onclick="toggleKelulusanLain(true)">
+                    <label for="kelulusan_lain">Lain-lain (Nyatakan):</label>
+                  </div>
+                  <input type="text" id="kelulusan_lain_teks" name="kelulusan_lain_teks" disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bidang_pengajian">13. Bidang Pengajian</label>
+              <input type="text" id="bidang_pengajian" name="bidang_pengajian">
+            </div>
+          </div>
+          
+          <!-- Susun atur 2 lajur -->
+          <div class="grid-row grid-col-2">
+            <div class="form-group">
+              <label>14. Pekerjaan</label>
+              <div class="choice-group">
+                <div class="choice-item">
+                  <input type="radio" id="kerja_kerajaan" name="pekerjaan" value="Kerajaan">
+                  <label for="kerja_kerajaan">Kerajaan</label>
+                </div>
+                <div class="choice-item">
+                  <input type="radio" id="kerja_swasta" name="pekerjaan" value="Swasta">
+                  <label for="kerja_swasta">Swasta</label>
+                </div>
+                <div class="choice-item">
+                  <input type="radio" id="kerja_sendiri" name="pekerjaan" value="Sendiri">
+                  <label for="kerja_sendiri">Sendiri</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bidang_pekerjaan">15. Bidang Pekerjaan</label>
+              <input type="text" id="bidang_pekerjaan" name="bidang_pekerjaan">
+            </div>
+          </div>
+          
+        </div>
+      </fieldset>
+
+      <!-- ============================================= -->
+      <!-- BAHAGIAN B: BAYARAN -->
+      <!-- ============================================= -->
+      <fieldset>
+  <legend>B. BAYARAN</legend>
+  <div class="form-section">
+    <label style="margin-bottom: 12px;">Jenis Bayaran (boleh pilih lebih satu)</label>
+    <div class="choice-group">
+      <div class="choice-item">
+        <input type="checkbox" id="bayar_daftar" name="bayaran[]" value="Pendaftaran: RM 2.00">
+        <label for="bayar_daftar">1. Pendaftaran: RM 2.00</label>
+      </div>
+      <div class="choice-item">
+        <input type="checkbox" id="bayar_tahunan" name="bayaran[]" value="Yuran Tahunan: RM 3.00">
+        <label for="bayar_tahunan">2. Yuran Tahunan: RM 3.00</label>
+      </div>
+      <div class="choice-item">
+        <input type="checkbox" id="bayar_sekaligus" name="bayaran[]" value="Sekaligus: RM 100.00">
+        <label for="bayar_sekaligus">Sekaligus: RM 100.00</label>
+      </div>
+      <div class="choice-item">
+        <input type="checkbox" id="bayar_kad" name="bayaran[]" value="Kad Ahli: RM 5.00">
+        <label for="bayar_kad">3. Kad Ahli: RM 5.00</label>
+      </div>
+    </div>
+
+    <!-- Hidden field untuk No. Resit Bayaran -->
+    <input type="hidden" id="no_resit" name="no_resit" value="">
+    
+    <p class="help-text">
+      1. Bayaran Pendaftaran wajib ✅<br>
+      2. Yuran pilih salah satu antara tahunan atau sekaligus<br>
+      3. Kad Ahli pilih jika mahu
+    </p>
+  </div>
+</fieldset>----
+
+      <!-- ============================================= -->
+      <!-- BAHAGIAN C: PENGAKUAN PEMOHON -->
+      <!-- ============================================= -->
+      <fieldset>
+        <legend>C. PENGAKUAN PEMOHON</legend>
+        <div class="form-section">
+          <div class="form-group">
+            <label>Pernyataan</label>
+            <p class="help-text" style="background: #fff; border: 1px solid #ccc; padding: 12px; margin-top: 0;">
+              Saya mengaku kebenaran dasar PAS dan akan berusaha melaksanakan segala tuntutannya. Saya menerima PERLEMBAGAAN PAS sebagai panduan dan mengaku akan taat dan patuh kepada kepimpinan parti serta akan patuh dalam melaksanakan arahan-arahan dan keputusan-keputusan parti dari masa ke semasa.
+            </p>
+            <div class="choice-group" style="margin-top: 12px;">
+              <div class="choice-item">
+                <input type="radio" id="setuju" name="pengakuan" value="Saya setuju">
+                <label for="setuju" style="font-weight: 600;">Saya bersetuju dengan pengakuan di atas</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid-row grid-col-2" style="margin-top: 24px;">
+            <div class="form-group">
+              <label for="disahkan">Disahkan oleh (Tandatangan Pemohon)</label>
+              <input type="text" id="disahkan" name="disahkan" placeholder="Tampal URL tandatangan digital...">
+              <p class="help-text help-text-white">
+                <!-- === [DIKEMAS KINI] Link Tandatangan dimasukkan === -->
+                <a href="https://tanda-tangan-by-kamarul.netlify.app/" target="_blank" rel="noopener noreferrer">
+                  Klik di sini untuk Pad Tandatangan Digital
+                </a>
+              </p>
+            </div>
+            
+            <div class="form-group">
+              <label for="tarikh_hari_ini">Tarikh</label>
+              <input type="date" id="tarikh_hari_ini" name="tarikh_hari_ini" style="padding: 6px 10px;">
+            </div>
+          </div>
+          
+        </div>
+      </fieldset>
+      
+      <!-- Bahagian D & E (Disabled) kekal sama -->
+      
+      <!-- ============================================= -->
+      <!-- BAHAGIAN D: CADANGAN DAN SOKONGAN -->
+      <!-- ============================================= -->
+      <fieldset disabled>
+        <legend>D. CADANGAN DAN SOKONGAN (Untuk Kegunaan Pejabat)</legend>
+        <div class="form-section">
+          <div class="grid-row grid-col-2">
+            <div class="form-group">
+              <label>Nama Pencadang:</label>
+              <input type="text" disabled>
+              <label style="margin-top: 8px;">No. Ahli:</label>
+              <input type="text" disabled>
+            </div>
+            <div class="form-group">
+              <label>Tandatangan:</label>
+              <div style="height: 40px; border: 1px solid var(--c-border); background: #eee;"></div>
+              <label style="margin-top: 8px;">Tarikh:</label>
+              <input type="text" disabled>
+            </div>
+          </div>
+          <hr style="border: 0; border-top: 1px solid var(--c-border); margin: 16px 0;">
+          <div class="grid-row grid-col-2">
+            <div class="form-group">
+              <label>Nama Penyokong:</label>
+              <input type="text" disabled>
+              <label style="margin-top: 8px;">No. Ahli:</label>
+              <input type="text" disabled>
+            </div>
+            <div class="form-group">
+              <label>Tandatangan:</label>
+              <div style="height: 40px; border: 1px solid var(--c-border); background: #eee;"></div>
+              <label style="margin-top: 8px;">Tarikh:</label>
+              <input type="text" disabled>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      
+      <!-- ============================================= -->
+      <!-- BAHAGIAN E: PENERIMAAN -->
+      <!-- ============================================= -->
+      <fieldset disabled>
+        <legend>E. PENERIMAAN (Untuk Kegunaan Pejabat)</legend>
+        <div class="form-section">
+           <div class="grid-row grid-col-2">
+            <div class="form-group">
+              <label>Penerima Cawangan</label>
+              <input type="text" placeholder="Nama Penerima" disabled>
+              <input type="text" placeholder="Tandatangan" style="margin-top: 8px;" disabled>
+            </div>
+            <div class="form-group">
+              <label>Penerima Kawasan</label>
+              <input type="text" placeholder="Nama Penerima" disabled>
+              <input type="text" placeholder="Tandatangan" style="margin-top: 8px;" disabled>
+            </div>
+           </div>
+        </div>
+      </fieldset>
+      <!-- [TAMAT BARU] -->
+
+
+      <!-- ============================================= -->
+      <!-- BUTANG HANTAR -->
+      <!-- ============================================= -->
+      <button type="submit" class="submit-button" id="submitBtn">
+        Hantar Borang Permohonan
+      </button>
+
+    </form>
+  </div>
+  
+  <script>
+    /**
+     * Toggle untuk input 'Kelulusan Lain-lain'
+     */
+    function toggleKelulusanLain(enable) {
+      const inputTeks = document.getElementById('kelulusan_lain_teks');
+      if (enable) {
+        inputTeks.disabled = false;
+        inputTeks.focus();
+      } else {
+        inputTeks.disabled = true;
+        inputTeks.value = ''; // Kosongkan jika pilih 'Universiti'
+      }
+    }
+    
+    // Pastikan 'disable' semasa mula
+    document.addEventListener('DOMContentLoaded', function() {
+      toggleKelulusanLain(false);
+    });
+
+    /* ============================
+       Frontend submit -> Google Apps Script Web App
+       ============================ */
+    (function () {
+      // Gantikan dengan URL Web App awak (dah awak bagi)
+      const webAppUrl = "https://script.google.com/macros/s/AKfycbw_ifKoRTR3wxHBMzZPjUIWCTrlZWs7buRB_LMfgDt7zJMZig-SJ-hCbaymPErH85N6zA/exec";
+      const form = document.getElementById('pendaftaranForm');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Helper: collect checkboxes with same name into multiple entries (FormData handles arrays but ensure)
+      function collectFormDataAsFormData(formElement) {
+        const fd = new FormData();
+
+        // Normal inputs, textarea, select (FormData can take formElement directly, but we'll do manual to manage arrays)
+        const elements = formElement.elements;
+        for (let i = 0; i < elements.length; i++) {
+          const el = elements[i];
+          if (!el.name) continue;
+          
+          // Skip disabled fields
+          if (el.disabled) continue;
+
+          if (el.type === 'checkbox') {
+            if (el.checked) {
+              // For checkboxes with name like 'bayaran[]' we'll append as-is
+              fd.append(el.name, el.value);
+            }
+          } else if (el.type === 'radio') {
+            if (el.checked) {
+              fd.append(el.name, el.value);
+            }
+          } else if (el.type === 'file') {
+            // if multiple files allowed, handle FileList
+            const files = el.files;
+            if (files && files.length > 0) {
+              for (let f = 0; f < files.length; f++) {
+                // keep original input name
+                fd.append(el.name, files[f], files[f].name);
+              }
+            } else {
+              // append empty string so backend still sees the key (optional)
+              // fd.append(el.name, "");
+            }
+          } else {
+            fd.append(el.name, el.value);
+          }
+        }
+        return fd;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Basic validation: ensure at least nama_rumi is present (you can expand)
+        const namaRumi = form.querySelector('[name="nama_rumi"]');
+        if (namaRumi && namaRumi.value.trim() === "") {
+          alert("Sila isi Nama Penuh (Rumi).");
+          namaRumi.focus();
+          return;
+        }
+
+        // Disable button semasa menghantar
+        submitBtn.disabled = true;
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = "Menghantar...";
+
+        const fd = collectFormDataAsFormData(form);
+
+        fetch(webAppUrl, {
+          method: "POST",
+          body: fd
+          // NOTE: Do NOT set Content-Type header here; browser sets the correct multipart boundary.
+        })
+        .then(response => {
+          // Apps Script mungkin return JSON/text; response.ok mungkin false if CORS; still attempt to parse
+          // Try parse JSON or text if possible
+          if (response.ok) {
+            return response.json().catch(() => response.text());
+          } else {
+            // Even if not ok, try parse
+            return response.text().then(txt => { throw new Error(txt || 'HTTP error ' + response.status); });
+          }
+        })
+        .then(result => {
+          // Berjaya
+          alert("Borang berjaya dihantar! Terima kasih.");
+          form.reset();
+          toggleKelulusanLain(false); // reset keadaan input lain-lain
+        })
+        .catch(err => {
+          console.error("Hantar gagal:", err);
+          // Mungkin CORS atau masalah server. Beritahu pengguna dengan jelas.
+          alert("Maaf, penghantaran gagal. Sila semak sambungan atau tetapan Web App (Apps Script). Jika masalah berlanjutan, cuba gunakan fungsi 'Hantar' sekali lagi atau hubungi pentadbir.");
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
+---------
