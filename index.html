@@ -27,13 +27,13 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      font-size: 14px; /* Saiz font borang manual */
+      font-size: 14px;
     }
 
     /* === Kontena Utama (Kertas) === */
     .container {
       width: 100%;
-      max-width: 850px; /* Lebar sedikit untuk lajur */
+      max-width: 850px;
       background: #ffffff;
       border-radius: 4px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -47,19 +47,19 @@
       border-bottom: 2px solid #000;
       background-color: #fff;
       text-align: center;
-      line-height: 0; /* Padam 'extra space' bawah gambar */
+      line-height: 0;
     }
     .form-header-image img {
       width: 100%;
       max-width: 100%;
-      display: block; /* Padam 'extra space' bawah gambar */
+      display: block;
     }
     
     form {
       padding: 24px;
     }
 
-    /* === 'Fieldset' & 'Legend' (Header Bahagian) === */
+    /* === 'Fieldset' & 'Legend' === */
     fieldset {
       border: 1px solid #000;
       padding: 0;
@@ -73,11 +73,11 @@
       font-weight: 700;
       color: white;
       background: var(--c-primary);
-      margin-left: 16px; /* 'Effect' header */
+      margin-left: 16px;
       width: auto;
     }
 
-    /* === Kumpulan Borang (Label + Input) === */
+    /* === Kumpulan Borang === */
     .form-section {
       padding: 16px;
     }
@@ -96,30 +96,22 @@
       color: var(--c-text-label);
     }
 
-    /* === Input fail ditambah === */
     .form-group input[type="text"],
     .form-group input[type="date"],
     .form-group input[type="email"],
-    .form-group input[type="file"],
+    .form-group input[type="url"], /* Input URL ditambah */
     .form-group textarea,
     .form-group select {
       width: 100%;
       padding: 8px 10px;
       border: 1px solid var(--c-border);
-      border-radius: 0; /* Tiada 'radius' */
+      border-radius: 0;
       box-sizing: border-box;
       font-size: 1em;
       font-family: Arial, sans-serif;
-      /* === Warna latar input jadi hijau === */
       background: var(--c-bg-header);
     }
     
-    /* Input fail perlukan latar putih */
-    .form-group input[type="file"] {
-      background: #fff;
-      padding: 6px;
-    }
-
     .form-group textarea {
       min-height: 80px;
       resize: vertical;
@@ -131,7 +123,7 @@
       border-color: var(--c-primary);
       box-shadow: 0 0 0 2px rgba(0, 100, 0, 0.1);
       outline: none;
-      background: #fff; /* Tukar putih bila 'focus' */
+      background: #fff;
     }
     
     /* Input 'Lain-lain' */
@@ -150,7 +142,7 @@
     /* === Pilihan (Radio & Checkbox) === */
     .choice-group {
       display: flex;
-      flex-wrap: wrap; /* Benarkan 'wrap' jika sempit */
+      flex-wrap: wrap;
       gap: 16px;
       margin-top: 4px;
     }
@@ -167,7 +159,7 @@
       height: 1.2em;
       flex-shrink: 0;
       cursor: pointer;
-      accent-color: var(--c-primary); /* Warnakan 'tick'/'dot' */
+      accent-color: var(--c-primary);
     }
     
     .choice-item label {
@@ -188,7 +180,6 @@
       border: 1px dashed var(--c-border);
     }
     
-    /* Teks bantuan khas untuk upload IC */
     .help-text-white {
       background: #fff !important;
       border-style: solid;
@@ -197,9 +188,13 @@
     .help-text a {
       color: var(--c-primary);
       font-weight: 600;
+      text-decoration: none;
+    }
+    .help-text a:hover {
+      text-decoration: underline;
     }
 
-    /* === Layout Grid (Untuk Susun Atur) === */
+    /* === Layout Grid === */
     .grid-row {
       display: grid;
       gap: 16px;
@@ -208,30 +203,20 @@
     .grid-col-2 { grid-template-columns: 1fr 1fr; }
     .grid-col-3 { grid-template-columns: 1fr 1fr 1fr; }
 
-    /* Responsif untuk skrin kecil */
     @media (max-width: 700px) {
       .grid-col-2,
       .grid-col-3 {
-        grid-template-columns: 1fr; /* Jadi 1 lajur */
-        margin-bottom: 0; /* Padam 'margin' bwh (diganti 'gap') */
+        grid-template-columns: 1fr;
+        margin-bottom: 0;
       }
-      .grid-row {
-        margin-bottom: 0; /* Guna 'gap' dari 'grid' */
-      }
-      .form-group {
-        margin-bottom: 12px; /* Kekalkan jarak */
-      }
-      
-      /* Responsif 'Lain-lain' */
+      .grid-row { margin-bottom: 0; }
+      .form-group { margin-bottom: 12px; }
       .lain-lain-group {
         flex-direction: column;
         align-items: flex-start;
       }
-      .lain-lain-group input[type="text"] {
-        width: 100%;
-      }
+      .lain-lain-group input[type="text"] { width: 100%; }
     }
-
 
     /* === Butang Hantar === */
     .submit-button {
@@ -247,37 +232,88 @@
       transition: background-color 0.2s;
       margin-top: 16px;
     }
+    .submit-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
     
-    /* 'Disabled' fieldset */
     fieldset:disabled {
       background: #f7f7f7;
       opacity: 0.8;
     }
-    
-    fieldset:disabled legend {
-      background: #777;
+    fieldset:disabled legend { background: #777; }
+
+    /* === MODAL POPUP (SUCCESS) === */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; 
+      z-index: 1000; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+      justify-content: center;
+      align-items: center;
     }
-    
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .modal-icon {
+      font-size: 50px;
+      color: var(--c-primary);
+      margin-bottom: 15px;
+    }
+
+    .modal h2 {
+      color: var(--c-primary);
+      margin-top: 0;
+    }
+
+    .modal p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .close-btn {
+      background-color: var(--c-primary);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    .close-btn:hover {
+      background-color: #004d00;
+    }
+
   </style>
 </head>
 <body>
 
   <div class="container">
     
-    <!-- === HEADER GAMBAR (KEKAL) === -->
     <div class="form-header-image">
       <img src="https://raw.githubusercontent.com/kamarul95-cloud/hostqamarul/main/Screenshot_15-11-2025_204740_.jpeg" alt="Borang Permohonan Ahli PAS">
     </div>
 
-    <!-- 
-      === [PENTING] 'enctype' ditambah untuk membenarkan 'file upload'. ===
-      ACTION diganti supaya fallback native POST ke webapp juga berfungsi.
-    -->
-    <form id="pendaftaranForm" method="POST" action="https://script.google.com/macros/s/AKfycbw_ifKoRTR3wxHBMzZPjUIWCTrlZWs7buRB_LMfgDt7zJMZig-SJ-hCbaymPErH85N6zA/exec​https://script.google.com/macros/s/AKfycbw_ifKoRTR3wxHBMzZPjUIWCTrlZWs7buRB_LMfgDt7zJMZig-SJ-hCbaymPErH85N6zA/exec" enctype="multipart/form-data">
+    <form id="pendaftaranForm" method="POST">
 
-      <!-- ============================================= -->
-      <!-- BAHAGIAN A: BUTIR-BUTIR DIRI -->
-      <!-- ============================================= -->
       <fieldset>
         <legend>A. BUTIR-BUTIR DIRI</legend>
         <div class="form-section">
@@ -286,7 +322,6 @@
             <label for="nama_jawi">1. Nama Penuh (Tulisan Jawi)</label>
             <input type="text" id="nama_jawi" name="nama_jawi">
             <p class="help-text">
-              <!-- === [DIKEMAS KINI] Link Jawi dimasukkan === -->
               <a href="https://ejawimakmur.my/" target="_blank" rel="noopener noreferrer">
                 Klik di sini untuk menukar nama Rumi ke Jawi
               </a>
@@ -298,7 +333,6 @@
             <input type="text" id="nama_rumi" name="nama_rumi">
           </div>
 
-          <!-- Susun atur 3 lajur -->
           <div class="grid-row grid-col-3">
             <div class="form-group">
               <label for="ic_baru">3. No. Kad Pengenalan Baru</label>
@@ -316,24 +350,21 @@
             </div>
           </div>
           
-          <!-- === [BARU] FIELD UPLOAD IC DIINJECT SEMULA === -->
           <div class="form-group" style="margin-top: 16px;">
-            <label for="ic_gambar">Lampirkan Salinan IC (Depan & Belakang)</label>
-            <input type="file" id="ic_gambar" name="ic_gambar" accept="image/*,.pdf">
+            <label for="ic_url">Lampirkan Pautan Gambar IC (Depan & Belakang)</label>
+            
+            <input type="text" id="ic_url" name="ic_url" placeholder="Tampal (Paste) URL gambar IC di sini..." required>
+            
             <p class="help-text help-text-white">
-              Sila tekan link untuk tangkap gambar ic depan belakang
+              Sila tekan link di bawah untuk ambil gambar & dapatkan URL:
               <br>
-              <!-- === [DIKEMAS KINI] Link Scanner IC dimasukkan === -->
-              <a href="https://scanner-no-kp-by-kamarul.netlify.app/" target="_blank" rel="noopener noreferrer">
-                Ambil Gambar IC Dengan Auto Crop & Saiz Sebenar
+              <a href="https://scanner-no-kp-by-kamarul.netlify.app/" target="_blank" rel="noopener noreferrer" style="font-size: 1.1em; font-weight:bold;">
+                📸 Klik Sini: Pengimbas IC & Upload
               </a>
               <br>
-              <small>(Upload 1 fail sahaja. Max 10 MB.)</small>
+              <small>(Ambil gambar > Upload > Salin Link > Tampal di kotak atas)</small>
             </p>
           </div>
-          <!-- === [TAMAT BARU] === -->
-
-          <!-- Susun atur 2 lajur -->
           <div class="grid-row grid-col-2" style="margin-top: 16px;">
             <div class="form-group">
               <label>6. Jantina</label>
@@ -360,7 +391,6 @@
             <textarea id="alamat" name="alamat" rows="3"></textarea>
           </div>
 
-          <!-- Susun atur 2 lajur -->
           <div class="grid-row grid-col-2">
             <div class="form-group">
               <label for="poskod">Poskod</label>
@@ -373,7 +403,6 @@
             </div>
           </div>
 
-          <!-- Susun atur 3 lajur -->
           <div class="grid-row grid-col-3">
             <div class="form-group">
               <label for="tel_rumah">9. No. Telefon Rumah</label>
@@ -391,7 +420,6 @@
             </div>
           </div>
           
-          <!-- Susun atur 2 lajur -->
           <div class="grid-row grid-col-2">
             <div class="form-group">
               <label>12. Kelulusan</label>
@@ -416,7 +444,6 @@
             </div>
           </div>
           
-          <!-- Susun atur 2 lajur -->
           <div class="grid-row grid-col-2">
             <div class="form-group">
               <label>14. Pekerjaan</label>
@@ -445,46 +472,39 @@
         </div>
       </fieldset>
 
-      <!-- ============================================= -->
-      <!-- BAHAGIAN B: BAYARAN -->
-      <!-- ============================================= -->
       <fieldset>
-  <legend>B. BAYARAN</legend>
-  <div class="form-section">
-    <label style="margin-bottom: 12px;">Jenis Bayaran (boleh pilih lebih satu)</label>
-    <div class="choice-group">
-      <div class="choice-item">
-        <input type="checkbox" id="bayar_daftar" name="bayaran[]" value="Pendaftaran: RM 2.00">
-        <label for="bayar_daftar">1. Pendaftaran: RM 2.00</label>
-      </div>
-      <div class="choice-item">
-        <input type="checkbox" id="bayar_tahunan" name="bayaran[]" value="Yuran Tahunan: RM 3.00">
-        <label for="bayar_tahunan">2. Yuran Tahunan: RM 3.00</label>
-      </div>
-      <div class="choice-item">
-        <input type="checkbox" id="bayar_sekaligus" name="bayaran[]" value="Sekaligus: RM 100.00">
-        <label for="bayar_sekaligus">Sekaligus: RM 100.00</label>
-      </div>
-      <div class="choice-item">
-        <input type="checkbox" id="bayar_kad" name="bayaran[]" value="Kad Ahli: RM 5.00">
-        <label for="bayar_kad">3. Kad Ahli: RM 5.00</label>
-      </div>
-    </div>
+        <legend>B. BAYARAN</legend>
+        <div class="form-section">
+          <label style="margin-bottom: 12px;">Jenis Bayaran (boleh pilih lebih satu)</label>
+          <div class="choice-group">
+            <div class="choice-item">
+              <input type="checkbox" id="bayar_daftar" name="bayaran[]" value="Pendaftaran: RM 2.00">
+              <label for="bayar_daftar">1. Pendaftaran: RM 2.00</label>
+            </div>
+            <div class="choice-item">
+              <input type="checkbox" id="bayar_tahunan" name="bayaran[]" value="Yuran Tahunan: RM 3.00">
+              <label for="bayar_tahunan">2. Yuran Tahunan: RM 3.00</label>
+            </div>
+            <div class="choice-item">
+              <input type="checkbox" id="bayar_sekaligus" name="bayaran[]" value="Sekaligus: RM 100.00">
+              <label for="bayar_sekaligus">Sekaligus: RM 100.00</label>
+            </div>
+            <div class="choice-item">
+              <input type="checkbox" id="bayar_kad" name="bayaran[]" value="Kad Ahli: RM 5.00">
+              <label for="bayar_kad">3. Kad Ahli: RM 5.00</label>
+            </div>
+          </div>
 
-    <!-- Hidden field untuk No. Resit Bayaran -->
-    <input type="hidden" id="no_resit" name="no_resit" value="">
-    
-    <p class="help-text">
-      1. Bayaran Pendaftaran wajib ✅<br>
-      2. Yuran pilih salah satu antara tahunan atau sekaligus<br>
-      3. Kad Ahli pilih jika mahu
-    </p>
-  </div>
-</fieldset>----
+          <input type="hidden" id="no_resit" name="no_resit" value="">
+          
+          <p class="help-text">
+            1. Bayaran Pendaftaran wajib ✅<br>
+            2. Yuran pilih salah satu antara tahunan atau sekaligus<br>
+            3. Kad Ahli pilih jika mahu
+          </p>
+        </div>
+      </fieldset>
 
-      <!-- ============================================= -->
-      <!-- BAHAGIAN C: PENGAKUAN PEMOHON -->
-      <!-- ============================================= -->
       <fieldset>
         <legend>C. PENGAKUAN PEMOHON</legend>
         <div class="form-section">
@@ -506,7 +526,6 @@
               <label for="disahkan">Disahkan oleh (Tandatangan Pemohon)</label>
               <input type="text" id="disahkan" name="disahkan" placeholder="Tampal URL tandatangan digital...">
               <p class="help-text help-text-white">
-                <!-- === [DIKEMAS KINI] Link Tandatangan dimasukkan === -->
                 <a href="https://tanda-tangan-by-kamarul.netlify.app/" target="_blank" rel="noopener noreferrer">
                   Klik di sini untuk Pad Tandatangan Digital
                 </a>
@@ -522,11 +541,6 @@
         </div>
       </fieldset>
       
-      <!-- Bahagian D & E (Disabled) kekal sama -->
-      
-      <!-- ============================================= -->
-      <!-- BAHAGIAN D: CADANGAN DAN SOKONGAN -->
-      <!-- ============================================= -->
       <fieldset disabled>
         <legend>D. CADANGAN DAN SOKONGAN (Untuk Kegunaan Pejabat)</legend>
         <div class="form-section">
@@ -562,9 +576,6 @@
         </div>
       </fieldset>
       
-      <!-- ============================================= -->
-      <!-- BAHAGIAN E: PENERIMAAN -->
-      <!-- ============================================= -->
       <fieldset disabled>
         <legend>E. PENERIMAAN (Untuk Kegunaan Pejabat)</legend>
         <div class="form-section">
@@ -582,17 +593,22 @@
            </div>
         </div>
       </fieldset>
-      <!-- [TAMAT BARU] -->
 
-
-      <!-- ============================================= -->
-      <!-- BUTANG HANTAR -->
-      <!-- ============================================= -->
       <button type="submit" class="submit-button" id="submitBtn">
         Hantar Borang Permohonan
       </button>
 
     </form>
+  </div>
+
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-icon">✅</div>
+      <h2>Borang Berjaya Diisi!</h2>
+      <p>Terima kasih.</p>
+      <p>Sila jemput ahli keluarga dan rakan-rakan bersama menjadi ahli PAS.</p>
+      <button class="close-btn" onclick="tutupModal()">Tutup & Kembali</button>
+    </div>
   </div>
   
   <script>
@@ -615,50 +631,40 @@
       toggleKelulusanLain(false);
     });
 
+    // Fungsi Tutup Modal
+    function tutupModal() {
+      document.getElementById('successModal').style.display = 'none';
+      // Optional: Reload page atau redirect jika perlu
+      // window.location.reload(); 
+    }
+
     /* ============================
        Frontend submit -> Google Apps Script Web App
        ============================ */
     (function () {
-      // Gantikan dengan URL Web App awak (dah awak bagi)
       const webAppUrl = "https://script.google.com/macros/s/AKfycbw_ifKoRTR3wxHBMzZPjUIWCTrlZWs7buRB_LMfgDt7zJMZig-SJ-hCbaymPErH85N6zA/exec";
       const form = document.getElementById('pendaftaranForm');
       const submitBtn = document.getElementById('submitBtn');
+      const modal = document.getElementById('successModal');
 
-      // Helper: collect checkboxes with same name into multiple entries (FormData handles arrays but ensure)
+      // Helper: collect checkboxes with same name into multiple entries
       function collectFormDataAsFormData(formElement) {
         const fd = new FormData();
-
-        // Normal inputs, textarea, select (FormData can take formElement directly, but we'll do manual to manage arrays)
         const elements = formElement.elements;
         for (let i = 0; i < elements.length; i++) {
           const el = elements[i];
-          if (!el.name) continue;
-          
-          // Skip disabled fields
-          if (el.disabled) continue;
+          if (!el.name || el.disabled) continue;
 
           if (el.type === 'checkbox') {
             if (el.checked) {
-              // For checkboxes with name like 'bayaran[]' we'll append as-is
               fd.append(el.name, el.value);
             }
           } else if (el.type === 'radio') {
             if (el.checked) {
               fd.append(el.name, el.value);
             }
-          } else if (el.type === 'file') {
-            // if multiple files allowed, handle FileList
-            const files = el.files;
-            if (files && files.length > 0) {
-              for (let f = 0; f < files.length; f++) {
-                // keep original input name
-                fd.append(el.name, files[f], files[f].name);
-              }
-            } else {
-              // append empty string so backend still sees the key (optional)
-              // fd.append(el.name, "");
-            }
           } else {
+            // Text inputs, select, textarea, url
             fd.append(el.name, el.value);
           }
         }
@@ -668,12 +674,20 @@
       form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // Basic validation: ensure at least nama_rumi is present (you can expand)
+        // Basic validation
         const namaRumi = form.querySelector('[name="nama_rumi"]');
         if (namaRumi && namaRumi.value.trim() === "") {
           alert("Sila isi Nama Penuh (Rumi).");
           namaRumi.focus();
           return;
+        }
+        
+        // Validasi URL IC
+        const icUrl = form.querySelector('[name="ic_url"]');
+        if (icUrl && icUrl.value.trim() === "") {
+           alert("Sila tampal URL gambar IC.");
+           icUrl.focus();
+           return;
         }
 
         // Disable button semasa menghantar
@@ -686,28 +700,24 @@
         fetch(webAppUrl, {
           method: "POST",
           body: fd
-          // NOTE: Do NOT set Content-Type header here; browser sets the correct multipart boundary.
         })
         .then(response => {
-          // Apps Script mungkin return JSON/text; response.ok mungkin false if CORS; still attempt to parse
-          // Try parse JSON or text if possible
           if (response.ok) {
             return response.json().catch(() => response.text());
           } else {
-            // Even if not ok, try parse
             return response.text().then(txt => { throw new Error(txt || 'HTTP error ' + response.status); });
           }
         })
         .then(result => {
-          // Berjaya
-          alert("Borang berjaya dihantar! Terima kasih.");
+          // Berjaya - Tunjuk Modal (Ganti Alert)
+          modal.style.display = 'flex';
+          
           form.reset();
-          toggleKelulusanLain(false); // reset keadaan input lain-lain
+          toggleKelulusanLain(false);
         })
         .catch(err => {
           console.error("Hantar gagal:", err);
-          // Mungkin CORS atau masalah server. Beritahu pengguna dengan jelas.
-          alert("Maaf, penghantaran gagal. Sila semak sambungan atau tetapan Web App (Apps Script). Jika masalah berlanjutan, cuba gunakan fungsi 'Hantar' sekali lagi atau hubungi pentadbir.");
+          alert("Maaf, penghantaran gagal. Sila semak sambungan internet.");
         })
         .finally(() => {
           submitBtn.disabled = false;
@@ -719,4 +729,4 @@
 
 </body>
 </html>
----------
+```
