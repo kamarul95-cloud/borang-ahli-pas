@@ -712,7 +712,7 @@
         
         // 3. Tambah Jumlah Bayaran dan senarai jenis bayaran yang dipisahkan oleh pipe
         fd.append('jumlah_bayaran', totalPayment.toFixed(2));
-        fd.append('bayaran', bayaranValues.join(' | ')); // Satu field 'bayaran' untuk semua jenis bayaran
+        fd.append('bayaran', bayaranValues.join(' , ')); // Satu field 'bayaran' untuk semua jenis bayaran
 
         return fd;
       }
