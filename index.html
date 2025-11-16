@@ -358,7 +358,7 @@
             <p class="help-text help-text-white">
               Sila tekan link di bawah untuk ambil gambar & dapatkan URL:
               <br>
-              <a href="https://scanner-no-kp-by-kamarul.netlify.app/" target="_blank" rel="noopener noreferrer" style="font-size: 1.1em; font-weight:bold;">
+              <a href="https://scanner-no-kp-by-kamarul-v2.netlify.app/" target="_blank" rel="noopener noreferrer" style="font-size: 1.1em; font-weight:bold;">
                 📸 Klik Sini: Pengimbas IC & Upload
               </a>
               <br>
@@ -404,20 +404,20 @@
           </div>
 
           <div class="grid-row grid-col-3">
-            <div class="form-group">
-              <label for="tel_rumah">9. No. Telefon Rumah</label>
-              <input type="text" id="tel_rumah" name="tel_rumah">
-            </div>
+              <div class="form-group">
+                <label for="tel_bimbit">9. No. Telefon Bimbit</label>
+                <input type="text" id="tel_bimbit" name="tel_bimbit">
+              </div>
 
-            <div class="form-group">
-              <label for="tel_bimbit">10. No. Telefon Bimbit</label>
-              <input type="text" id="tel_bimbit" name="tel_bimbit">
-            </div>
-            
-            <div class="form-group">
-              <label for="email">11. Alamat E-mel</label>
-              <input type="email" id="email" name="email">
-            </div>
+              <div class="form-group">
+                <label for="tel_rumah">10. No. Telefon Rumah</label>
+                <input type="text" id="tel_rumah" name="tel_rumah">
+              </div>
+              
+              <div class="form-group">
+                <label for="email">11. Alamat E-mel</label>
+                <input type="email" id="email" name="email">
+              </div>
           </div>
           
           <div class="grid-row grid-col-2">
@@ -476,25 +476,26 @@
         <legend>B. BAYARAN</legend>
         <div class="form-section">
           <label style="margin-bottom: 12px;">Jenis Bayaran (boleh pilih lebih satu)</label>
-          <div class="choice-group">
+          <div class="choice-group" id="bayaranCheckboxes">
             <div class="choice-item">
-              <input type="checkbox" id="bayar_daftar" name="bayaran[]" value="Pendaftaran: RM 2.00">
+              <input type="checkbox" id="bayar_daftar" name="bayaran_item[]" value="Pendaftaran: RM 2.00">
               <label for="bayar_daftar">1. Pendaftaran: RM 2.00</label>
             </div>
             <div class="choice-item">
-              <input type="checkbox" id="bayar_tahunan" name="bayaran[]" value="Yuran Tahunan: RM 3.00">
+              <input type="checkbox" id="bayar_tahunan" name="bayaran_item[]" value="Yuran Tahunan: RM 3.00">
               <label for="bayar_tahunan">2. Yuran Tahunan: RM 3.00</label>
             </div>
             <div class="choice-item">
-              <input type="checkbox" id="bayar_sekaligus" name="bayaran[]" value="Sekaligus: RM 100.00">
+              <input type="checkbox" id="bayar_sekaligus" name="bayaran_item[]" value="Sekaligus: RM 100.00">
               <label for="bayar_sekaligus">Sekaligus: RM 100.00</label>
             </div>
             <div class="choice-item">
-              <input type="checkbox" id="bayar_kad" name="bayaran[]" value="Kad Ahli: RM 5.00">
+              <input type="checkbox" id="bayar_kad" name="bayaran_item[]" value="Kad Ahli: RM 5.00">
               <label for="bayar_kad">3. Kad Ahli: RM 5.00</label>
             </div>
           </div>
 
+          <input type="hidden" id="jumlah_bayaran" name="jumlah_bayaran" value="0.00">
           <input type="hidden" id="no_resit" name="no_resit" value="">
           
           <p class="help-text">
@@ -502,6 +503,11 @@
             2. Yuran pilih salah satu antara tahunan atau sekaligus<br>
             3. Kad Ahli pilih jika mahu
           </p>
+          
+          <p class="help-text help-text-white" style="border: 1px solid var(--c-primary);">
+             💰 **Jumlah Bayaran Dikira:** <span id="totalBayaranDisplay" style="font-weight: 700; color: var(--c-primary);">RM 0.00</span>
+          </p>
+          
         </div>
       </fieldset>
 
@@ -515,7 +521,7 @@
             </p>
             <div class="choice-group" style="margin-top: 12px;">
               <div class="choice-item">
-                <input type="radio" id="setuju" name="pengakuan" value="Saya setuju">
+                <input type="radio" id="setuju" name="pengakuan" value="Saya setuju" required>
                 <label for="setuju" style="font-weight: 600;">Saya bersetuju dengan pengakuan di atas</label>
               </div>
             </div>
@@ -524,7 +530,7 @@
           <div class="grid-row grid-col-2" style="margin-top: 24px;">
             <div class="form-group">
               <label for="disahkan">Disahkan oleh (Tandatangan Pemohon)</label>
-              <input type="text" id="disahkan" name="disahkan" placeholder="Tampal URL tandatangan digital...">
+              <input type="text" id="disahkan" name="disahkan" placeholder="Tampal URL tandatangan digital..." required>
               <p class="help-text help-text-white">
                 <a href="https://tanda-tangan-by-kamarul.netlify.app/" target="_blank" rel="noopener noreferrer">
                   Klik di sini untuk Pad Tandatangan Digital
@@ -534,7 +540,7 @@
             
             <div class="form-group">
               <label for="tarikh_hari_ini">Tarikh</label>
-              <input type="date" id="tarikh_hari_ini" name="tarikh_hari_ini" style="padding: 6px 10px;">
+              <input type="date" id="tarikh_hari_ini" name="tarikh_hari_ini" style="padding: 6px 10px;" required>
             </div>
           </div>
           
@@ -607,7 +613,7 @@
       <h2>Borang Berjaya Diisi!</h2>
       <p>Terima kasih.</p>
       <p>Sila jemput ahli keluarga dan rakan-rakan bersama menjadi ahli PAS.</p>
-       <p>Dibina oleh Qamarul.</p>
+        <p>Dibina oleh Qamarul.</p>
       <button class="close-btn" onclick="tutupModal()">Tutup & Kembali</button>
     </div>
   </div>
@@ -627,48 +633,87 @@
       }
     }
     
-    // Pastikan 'disable' semasa mula
-    document.addEventListener('DOMContentLoaded', function() {
-      toggleKelulusanLain(false);
-    });
-
     // Fungsi Tutup Modal
     function tutupModal() {
       document.getElementById('successModal').style.display = 'none';
       // Optional: Reload page atau redirect jika perlu
       // window.location.reload(); 
     }
+    
+    // Helper: extract numeric value from bayaran string like "Pendaftaran: RM 2.00"
+    function extractAmount(value) {
+        const match = value.match(/RM\s*(\d+\.?\d*)/);
+        return match ? parseFloat(match[1]) : 0;
+    }
+    
+    // Helper: Calculate and display total payment
+    function calculateTotalPayment() {
+        const checkboxes = document.querySelectorAll('#bayaranCheckboxes input[type="checkbox"]:checked');
+        let total = 0;
+        checkboxes.forEach(cb => {
+            total += extractAmount(cb.value);
+        });
+        
+        // Update hidden field and display field
+        document.getElementById('jumlah_bayaran').value = total.toFixed(2);
+        document.getElementById('totalBayaranDisplay').textContent = 'RM ' + total.toFixed(2);
+    }
+
 
     /* ============================
-       Frontend submit -> Google Apps Script Web App
-       ============================ */
+        Frontend submit -> Google Apps Script Web App
+        ============================ */
     (function () {
       const webAppUrl = "https://script.google.com/macros/s/AKfycbw_ifKoRTR3wxHBMzZPjUIWCTrlZWs7buRB_LMfgDt7zJMZig-SJ-hCbaymPErH85N6zA/exec";
       const form = document.getElementById('pendaftaranForm');
       const submitBtn = document.getElementById('submitBtn');
       const modal = document.getElementById('successModal');
 
-      // Helper: collect checkboxes with same name into multiple entries
+      // Array of field names that should be prefixed with "'" for text formatting in Google Sheet
+      const numberFieldsToFormat = [
+        'ic_baru', 'ic_lama', 'tel_rumah', 'tel_bimbit', 'poskod'
+      ];
+      
+      // Helper: collect form data, format numbers, and calculate total payment
       function collectFormDataAsFormData(formElement) {
         const fd = new FormData();
         const elements = formElement.elements;
+        const bayaranValues = [];
+        let totalPayment = 0; // Sebenarnya sudah dikira di calculateTotalPayment, tapi kita kira semula untuk kepastian
+        
+        // Get total payment from hidden field (already calculated)
+        totalPayment = parseFloat(document.getElementById('jumlah_bayaran').value) || 0;
+
         for (let i = 0; i < elements.length; i++) {
           const el = elements[i];
           if (!el.name || el.disabled) continue;
 
-          if (el.type === 'checkbox') {
+          if (el.type === 'checkbox' && el.name === 'bayaran_item[]') {
             if (el.checked) {
-              fd.append(el.name, el.value);
+              // 3. Logik untuk Bayaran (Simpan jenis bayaran sahaja)
+              bayaranValues.push(el.value);​bayaranValues.push(el.value.split(':')[0].trim());​bayaranValues.push(el.value.split(':')[0].trim());​bayaranValues.push(el.value.split(':')[0].trim());​bayaranValues.push(el.value.split(':')[0].trim());
             }
           } else if (el.type === 'radio') {
             if (el.checked) {
               fd.append(el.name, el.value);
             }
-          } else {
-            // Text inputs, select, textarea, url
-            fd.append(el.name, el.value);
+          } else if (el.name !== 'bayaran_item[]' && el.name !== 'jumlah_bayaran') {
+             // Append other fields normally, except the checkbox items and hidden total field
+            let value = el.value.trim();
+
+            // 1. Format Nombor/ID dengan simbol '
+            if (numberFieldsToFormat.includes(el.name) && value) {
+              value = "'" + value;
+            }
+
+            fd.append(el.name, value);
           }
         }
+        
+        // 3. Tambah Jumlah Bayaran dan senarai jenis bayaran yang dipisahkan oleh pipe
+        fd.append('jumlah_bayaran', totalPayment.toFixed(2));
+        fd.append('bayaran', bayaranValues.join(' | ')); // Satu field 'bayaran' untuk semua jenis bayaran
+
         return fd;
       }
 
@@ -677,19 +722,40 @@
 
         // Basic validation
         const namaRumi = form.querySelector('[name="nama_rumi"]');
-        if (namaRumi && namaRumi.value.trim() === "") {
+        const icUrl = form.querySelector('[name="ic_url"]');
+        const setuju = form.querySelector('[name="pengakuan"]:checked');
+        const tandatangan = form.querySelector('[name="disahkan"]');
+        const tarikh = form.querySelector('[name="tarikh_hari_ini"]');
+        
+        if (namaRumi.value.trim() === "") {
           alert("Sila isi Nama Penuh (Rumi).");
           namaRumi.focus();
           return;
         }
         
-        // Validasi URL IC
-        const icUrl = form.querySelector('[name="ic_url"]');
-        if (icUrl && icUrl.value.trim() === "") {
+        if (icUrl.value.trim() === "") {
            alert("Sila tampal URL gambar IC.");
            icUrl.focus();
            return;
         }
+        
+        if (!setuju) {
+            alert("Sila tandakan kotak pengakuan pemohon.");
+            return;
+        }
+
+        if (tandatangan.value.trim() === "") {
+            alert("Sila tampal URL Tandatangan Digital.");
+            tandatangan.focus();
+            return;
+        }
+
+        if (tarikh.value.trim() === "") {
+            alert("Sila masukkan Tarikh hari ini.");
+            tarikh.focus();
+            return;
+        }
+        
 
         // Disable button semasa menghantar
         submitBtn.disabled = true;
@@ -715,6 +781,7 @@
           
           form.reset();
           toggleKelulusanLain(false);
+          calculateTotalPayment(); // Reset total payment display
         })
         .catch(err => {
           console.error("Hantar gagal:", err);
@@ -725,9 +792,21 @@
           submitBtn.innerHTML = originalBtnText;
         });
       });
+      
+      // Event Listeners for Bayaran Calculation
+      const bayaranCheckboxes = document.querySelectorAll('#bayaranCheckboxes input[type="checkbox"]');
+      bayaranCheckboxes.forEach(cb => {
+          cb.addEventListener('change', calculateTotalPayment);
+      });
+      
+      // Initial setup
+      document.addEventListener('DOMContentLoaded', function() {
+        toggleKelulusanLain(false);
+        calculateTotalPayment(); // Calculate initial total (should be 0.00)
+      });
+      
     })();
   </script>
 
 </body>
-</html>
-```
+</html>-
